@@ -1,0 +1,69 @@
+/ category: String
+/ board_id: String
+doctype html
+html
+  head
+    title Goto &mdash; 実況掲示板リダイレクター
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+    script src="//code.jquery.com/jquery-1.11.2.min.js"
+    script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
+
+  body
+    .container
+      h1 クエリURL
+
+
+      .form-group
+        label コピペ用
+        input.form-control#url style="font-family: monospace" type="text" onclick="this.focus(); this.select()" readonly=true
+
+      - if hit
+        p.text-success
+          | 現在スレッド「
+          a href=hit.html_url #{hit.title}
+          | 」が選択されています。
+          button.btn.btn-default#test 再テスト
+      - else
+        p.text-danger
+          | クエリの条件に合うスレッドは見付かりませんでした。
+          button.btn.btn-default#test 再テスト
+
+      p 動作をカスタマイズできます。
+
+      .form-group
+        label しぼりこみ
+        input.form-control#t type="text" value=params['t']
+
+      .form-group
+        label NGワード
+        input.form-control#ng type="text" value=params['ng']
+
+      javascript:
+        function getUrl(kind) {
+          var l = window.location;
+          var url = l.protocol + '//' + l.host + "/s/#{category}/#{board_id}/" + kind;
+          var t = $('#t').val();
+          var ng = $('#ng').val();
+
+          if (t || ng) {
+            var obj = {};
+            if (t)
+              obj.t = t;
+            if (ng)
+              obj.ng = ng;
+            url += '?' + $.param(obj);
+          }
+          return url;
+        }
+        function updateUrl() {
+          $('#url').val(getUrl('current'));
+        }
+        $('#t').on('input', updateUrl);
+        $('#ng').on('input', updateUrl);
+        $('#test').click(function (e) {
+          window.location.href = getUrl('test');
+          e.preventDefault();
+        });
+        $(function () {
+          updateUrl();
+        });

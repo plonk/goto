@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Goto &mdash; 実況掲示板リダイレクター
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+    script src="//code.jquery.com/jquery-1.11.2.min.js"
+    script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
+
+  body
+    .container
+      h1 どの掲示板？
+
+      p 実況スレッドへの動的リンクを作成します。
+
+      form
+        .form-group
+          label カテゴリー
+          input.form-control#cat type="text" placeholder="game"
+
+        .form-group
+          label 掲示板ID
+          input.form-control#id type="text" placeholder="12345"
+
+        .form-group
+          button.btn.btn-primary#next &raquo; 次へ
+
+      javascript:
+        $('#next').click(function (e) {
+          var cat = $('#cat').val();
+          var id = $('#id').val();
+          if (!cat || !id)
+            alert('error' + cat + id);
+          else
+            window.location.href = "/s/" + cat + "/" + id + "/test";
+          e.preventDefault();
+        });

@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'rack', '~> 1.4.5'
+gem 'sinatra'
+gem 'activesupport'
+gem 'activerecord', '~> 4.1.7'
+# gem 'sqlite3'
+gem 'slim'
+# gem 'ridgepole'
+# gem 'rack-flash3'
