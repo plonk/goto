@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rack', '~> 1.4.5'
+gem 'rack', '>=1.6.12'
 gem 'sinatra'
 gem 'activesupport'
 gem 'activerecord', '~> 4.1.7'
